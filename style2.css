@@ -1,0 +1,74 @@
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Calendar-style grid */
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Bill card styling */
+        .bill-card {
+            background-color: #eef3fc;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .bill-card h2 {
+            font-size: 1.2em;
+            color: #3b5998;
+            margin-bottom: 10px;
+        }
+
+        .bill-details {
+            font-size: 1em;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .bill-section {
+            margin-top: 15px;
+            font-size: 1em;
+            color: #555;
+            padding: 10px;
+            background: #f0f7ff;
+            border-radius: 8px;
+        }
+
+        .bill-section strong {
+            color: #3b5998;
+        }
