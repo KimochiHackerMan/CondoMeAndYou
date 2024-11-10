@@ -20,7 +20,6 @@
                 <input type="text" name="lName" id="lName" placeholder="Last Name">
                 <input type="email" name="email" id="email" placeholder="Email">
                 <input type="password" name="password" id="password" placeholder="Password">
-				<input type="text" name="room" id="room" placeholder="Room Number">
 				<input type="submit" class="btn" value="Sign Up" name="signUp">
             </form>
         </div>
@@ -44,13 +43,15 @@
                 </div>
                 <div class="toggle-panel toggle-right">
                     <h1>Hello, Neighbor!</h1>
-                    <p>This is still in development website for helping you in your bills. Click SIGN UP to see more</p>
+                    <p>This is still in development website for helping you to check in your bills. Click SIGN UP to see more</p>
                     <button class="hidden" id="register">Sign Up</button>
                 </div>
             </div>
         </div>
     </div>
-
+        <div class="footer">
+            <p>&copy; 2024 CondoMeAndYou - All rights reserved.</p>
+        </div>
     <script src="script.js"></script>
 </body>
 

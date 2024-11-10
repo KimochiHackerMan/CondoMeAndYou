@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Condo Bill Tracker - Add/Edit Bills</title>
+    <title>CondoMeAndYou</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
         .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
@@ -107,9 +107,9 @@ $conn=new mysqli($host,$user,$pass,$db);
         <label for="rent_due_date">Due Date:</label>
         <input type="date" id="rent_due_date" name="rent_due_date" required>
 
-        <button type="submit">Submit</button>
+        <button type="submit">UPDATE</button>
     </form>
 </div>
-
+       <h1> <a href="index.php">EXIT ADMIN PAGE</a> </h1>
 </body>
 </html>

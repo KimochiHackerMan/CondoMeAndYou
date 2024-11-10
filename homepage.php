@@ -2,88 +2,63 @@
 session_start();
 include("connect.php");
 
-// Check if the user is logged in and room is set in session
-if (!isset($_SESSION['email']) || !isset($_SESSION['room'])) {
-    header("Location: index.php"); // Redirect if not logged in
-    exit();
-}
-
-// Get the user's email and room from session
-$email = $_SESSION['email'];
-$room_number = $_SESSION['room'];
-
-// Query to get the user details and bill details for the logged-in room
-$query = $conn->prepare("
-    SELECT 
-        u.firstName, u.lastName, u.room,
-        b.water_bill_amount, b.water_last_payment_date, b.water_due_date,
-        b.electricity_bill_amount, b.electricity_last_payment_date, b.electricity_due_date,
-        b.rent_amount, b.rent_last_payment_date, b.rent_due_date
-    FROM 
-        users u 
-    INNER JOIN 
-        bills b ON u.room = b.room
-    WHERE 
-        u.email = ? AND u.room = ?
-");
-
-// Bind the parameters and execute the query
-$query->bind_param("si", $email, $room_number);
-$query->execute();
-$result = $query->get_result();
-
-// Fetch the user's information and bills data
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-} else {
-    echo "<p>No bills found for your room.</p>";
-    exit();
-}
-
-$query->close();
-$conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>CondoMeAndYou</title>
 </head>
 <body>
-<div class="calendar">
-    <h2>Welcome, <?php echo htmlspecialchars($row['firstName']) . " " . htmlspecialchars($row['lastName']); ?></h2>
-    <p>Your Room Number: <?php echo htmlspecialchars($row['room']); ?></p>
 
-    <!-- Display Water Bill -->
-    <div class='bill-card'>
-        <h3>Water Bill</h3>
-        <p>Amount Due: $<?php echo $row["water_bill_amount"]; ?></p>
-        <p>Last Payment: <?php echo $row["water_last_payment_date"]; ?></p>
-        <p>Due Date: <?php echo $row["water_due_date"]; ?></p>
-    </div>
 
-    <!-- Display Electricity Bill -->
-    <div class='bill-card'>
-        <h3>Electricity Bill</h3>
-        <p>Amount Due: $<?php echo $row["electricity_bill_amount"]; ?></p>
-        <p>Last Payment: <?php echo $row["electricity_last_payment_date"]; ?></p>
-        <p>Due Date: <?php echo $row["electricity_due_date"]; ?></p>
-    </div>
+    <div class="container" id="container">
+        <div class="form-container sign-up" id="Look">
+            <form method="post" action="look.php">
+        <label for="room">Room Number:</label>
+        <input type="number" name="room" id="room" required>
+        <input type="submit" class="btn" value="Search" name="Look">
 
-    <!-- Display Rent -->
-    <div class='bill-card'>
-        <h3>Rent</h3>
-        <p>Amount Due: $<?php echo $row["rent_amount"]; ?></p>
-        <p>Last Payment: <?php echo $row["rent_last_payment_date"]; ?></p>
-        <p>Due Date: <?php echo $row["rent_due_date"]; ?></p>
+            </form>
+        </div>
+        <div class="form-container sign-in" id="signIn" >
+            <form method="post" action="register.php">
+                <h1>CondoMeAndYou</h1>
+				<form method="post" action="register.php">
+                <span></span>
+
+            </form>
+        </div>
+
+       <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>CondoMeAndYou!</h1>
+                    <p>Enter The Room That You Want To See The Bill Information Of</p>
+                    <button class="hidden" id="login">Return</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+
+                <label for="room">Welcome To CondoMeAndYou</label>
+                    <h1>Enter The Room Number You Want To See The Bills With:</h1>
+                    <p>This is still in development website for helping you in your bills.</p>
+                    <button class="hidden" id="register">Search Bills</button>
+            
+        </div>
     </div>
 </div>
+</div>
 
-<!-- Logout Button -->
-<a href="logout.php">Logout</a>
-
+    <script src="script.js"></script>
+	        <div class="footer">
+            <p>&copy; 2024 CondoMeAndYou - All rights reserved.</p>
+        </div>
+        <!-- Logout button -->
+        <a href="logout.php">Logout</a>
 </body>
 </html>

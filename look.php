@@ -2,45 +2,36 @@
 include("connect.php");
 
 
-
-// Initialize variables
-$room = "";
-$billData = null;
-
-// Check if a room number was submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['room'])) {
+if (isset($_POST['Look']) && !empty($_POST['room'])) {
     $room = $_POST['room'];
-
-    // Query to get bill information for the specified room
-    $sql = "SELECT 
-                bills.water_bill_amount, 
-                bills.water_last_payment_date, 
-                bills.water_due_date, 
-                bills.electricity_bill_amount, 
-                bills.electricity_last_payment_date, 
-                bills.electricity_due_date, 
-                bills.rent_amount, 
-                bills.rent_last_payment_date, 
-                bills.rent_due_date 
-            FROM 
-                bills
-            WHERE 
-                bills.room = ?";
     
+
+    $sql = "SELECT * FROM Bills WHERE room = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $room);
+    $stmt->bind_param("s", $room); 
     $stmt->execute();
     $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $billData = $result->fetch_assoc();
+    
+    if ($result && $result->num_rows > 0) {
+        session_start();
+        $row = $result->fetch_assoc();
+        $_SESSION['room'] = $row['room'];
+        header("Location: roombills.php");
+        exit();
     } else {
-        $error = "No billing information found for room " . htmlspecialchars($room);
+        echo "<p>Not Found, Your given room was no vacancy.</p>";
+
+
+        header("Location: homepage.php");
+        exit();
+		    
     }
+} else {
+    echo "<p>Room number is required.</p>";
 
-    $stmt->close();
+
+    header("Location: homepage.php");
+    exit();
 }
-
-$conn->close();
 ?>
 

@@ -3,7 +3,7 @@
 include 'connect.php';
 
 if(isset($_POST['signUp'])){
-	$room=$_POST['room'];
+
     $firstName=$_POST['fName'];
     $lastName=$_POST['lName'];
     $email=$_POST['email'];
@@ -16,8 +16,8 @@ if(isset($_POST['signUp'])){
         echo "Email Address Already Exists !";
      }
      else{
-        $insertQuery="INSERT INTO users(room,firstName,lastName,email,password)
-                       VALUES ('$room','$firstName','$lastName','$email','$password')";
+        $insertQuery="INSERT INTO users(firstName,lastName,email,password)
+                       VALUES (,'$firstName','$lastName','$email','$password')";
             if($conn->query($insertQuery)==TRUE){
                 header("location: index.php");
             }
@@ -30,7 +30,6 @@ if(isset($_POST['signUp'])){
 }
 
 if(isset($_POST['signIn'])){
-		$room=$_POST['room'];
    $email=$_POST['email'];
    $password=$_POST['password'];
    $password=md5($password) ;
@@ -41,13 +40,19 @@ if(isset($_POST['signIn'])){
     session_start();
     $row=$result->fetch_assoc();
     $_SESSION['email']=$row['email'];
-
-    header("Location: homepage.php");
-    exit();
+    header("Location: homepage.php"); 
+        
+   
+   if ($email === "ktemplo@yahoo.com") {
+   header("Location: admin.php"); 
    }
-   else{
+
+		exit();
+}
+else{ 
     echo "Not Found, Incorrect Email or Password";
    }
+}	
 
-}
+
 ?>
